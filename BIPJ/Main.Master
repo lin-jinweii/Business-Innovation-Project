@@ -1,0 +1,103 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="BIPJ.Main1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server" class="content_placement">
+    <title></title>
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap');
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .content_placement {
+            background-color: #F0F1F2;
+            width: 1040px;
+        }        
+        .whole {
+            width: 250px;
+            height: 370px;
+        }
+        .profile {
+            height: 200px;
+            width: 169px;
+        }
+        #logo {
+            font-family: 'Fira Sans', sans-serif;
+            font-weight: bold;
+            font-size: 25px;
+            margin-left: 80px;
+            margin-bottom: 10px;
+        }
+        #name {
+            font-weight: bold;
+            font-family: 'PT Sans', sans-serif;
+            font-size: 20px;
+            margin-left: 95px;
+            margin-top: -69px;
+        }
+        #plan {
+            font-family: 'PT Sans', sans-serif;
+            font-size: 13px;
+            margin-top: -18px;
+            margin-left: 95px;
+            color: #9CA0A3;
+        }
+        ul {
+            list-style-type: none;
+            margin-top:-20px;
+        }
+        li {
+            margin-top: 30px;
+            margin-left: 95px;
+        }
+        a {
+            color: #969FAA;
+            font-family: 'Fira Sans', sans-serif;
+            font-size: 16px;
+        }
+        a:link {
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <table>
+                <tr>
+                    <td class="profile">
+                        <p id="logo"></p>
+                        <br />
+                        <p id="name">Daryl Chong</p>
+                        <br />
+                        <p id="plan">Adult plan</p>
+                    </td>
+                    <td rowspan="2" class="content_placement">
+                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="whole">
+                        <ul>
+                            <li><a href="Home.aspx">Home</a></li>
+                            <li><a href="Cards.aspx">Cards</a></li>
+                            <li><a href="Cards.aspx">Budget</a></li>
+                            <li><a href="Cards.aspx">Calendar</a></li>
+                            <li><a href="Cards.aspx">Settings</a></li>
+                            <li><a href="Cards.aspx">Logout</a></li>
+                            <li>$Z</li>
+                        </ul>
+                </tr>
+            </table>
+        </div>
+    </form>
+</body>
+</html>
