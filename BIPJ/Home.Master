@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="BIPJ.Main1" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Home.Master.cs" Inherits="BIPJ.Main1" %>
 
 <!DOCTYPE html>
 
@@ -24,12 +24,20 @@
             height: 200px;
             width: 169px;
         }
+
+        #circle {
+            height: 120px;
+            width: 120px;
+            margin-left: 60px;
+            margin-bottom: -60px;
+        }
         #logo {
             font-family: 'Fira Sans', sans-serif;
             font-weight: bold;
             font-size: 25px;
-            margin-left: 80px;
-            margin-bottom: 10px;
+            margin-left: 95px;
+            margin-top: -10px;
+            margin-bottom: 50px;
         }
         #name {
             font-weight: bold;
@@ -73,7 +81,8 @@
             <table>
                 <tr>
                     <td class="profile">
-                        <p id="logo"></p>
+                        <img src='assets/black-circle.png' id="circle" runat="server" />
+                        <p id="logo">D</p>
                         <br />
                         <p id="name">Daryl Chong</p>
                         <br />
@@ -87,7 +96,7 @@
                 <tr>
                     <td class="whole">
                         <ul>
-                            <li><a href="Home.aspx">Home</a></li>
+                            <li><a  href="Home.aspx" style="color: black">Home</a></li>
                             <li><a href="Cards.aspx">Cards</a></li>
                             <li><a href="Cards.aspx">Budget</a></li>
                             <li><a href="Cards.aspx">Calendar</a></li>
