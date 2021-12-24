@@ -67,18 +67,60 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\BankDB.mdf" />
+    <Content Include="App_Data\BankDB_log.ldf">
+      <DependentUpon>BankDB.mdf</DependentUpon>
+    </Content>
     <Content Include="assets\black-circle.png" />
+    <Content Include="Budget.aspx" />
+    <Content Include="Calendar.aspx" />
     <Content Include="Cards.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bank.cs" />
+    <Compile Include="Budget.aspx.cs">
+      <DependentUpon>Budget.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Budget.aspx.designer.cs">
+      <DependentUpon>Budget.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Budget.Master.cs">
+      <DependentUpon>Budget.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Budget.Master.designer.cs">
+      <DependentUpon>Budget.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Calendar.aspx.cs">
+      <DependentUpon>Calendar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Calendar.aspx.designer.cs">
+      <DependentUpon>Calendar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Calendar.Master.cs">
+      <DependentUpon>Calendar.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Calendar.Master.designer.cs">
+      <DependentUpon>Calendar.Master</DependentUpon>
+    </Compile>
     <Compile Include="Cards.aspx.cs">
       <DependentUpon>Cards.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Cards.aspx.designer.cs">
       <DependentUpon>Cards.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cards.Master.cs">
+      <DependentUpon>Cards.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cards.Master.designer.cs">
+      <DependentUpon>Cards.Master</DependentUpon>
     </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
@@ -98,6 +140,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Home.Master" />
+    <Content Include="Cards.Master" />
+    <Content Include="Budget.Master" />
+    <Content Include="Calendar.Master" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

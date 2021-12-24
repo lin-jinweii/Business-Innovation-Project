@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Home.Master.cs" Inherits="BIPJ.Main1" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Budget.master.cs" Inherits="BIPJ.Budget" %>
 
 <!DOCTYPE html>
 
@@ -100,9 +100,9 @@
                 <tr>
                     <td class="whole">
                         <ul>
-                            <li id="home"><a href="Home.aspx" style="color: black">Home</a></li>
+                            <li id="home"><a href="Home.aspx">Home</a></li>
                             <li><a href="Cards.aspx">Cards</a></li>
-                            <li><a href="Budget.aspx">Budget</a></li>
+                            <li><a href="Budget.aspx" style="color: black">Budget</a></li>
                             <li><a href="Calendar.aspx">Calendar</a></li>
                             <li><a href="~">Settings</a></li>
                             <li><a href="~">Logout</a></li>
