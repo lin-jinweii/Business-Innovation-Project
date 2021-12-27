@@ -1,11 +1,11 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="BIPJ.Home" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="Home_Summary.aspx.cs" Inherits="BIPJ.Home" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <header>
+<header>
 <style type="text/css">
     @import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap');
     * {
-            padding: 0;
-            margin: 0;
+        padding: 0;
+        margin: 0;
     }
     #heading {
         font-family: 'PT Sans', sans-serif;
@@ -22,13 +22,13 @@
     }
     #summary_btn {
         margin-left: 60px;
-        font-size: 30px;
+        font-size: 23px;
         font-family: 'PT Sans', sans-serif;
-        font-weight: normal;
+        font-weight: bold;
     }
     #transactions_btn {
         margin-left: 50px;
-        font-size: 30px;
+        font-size: 23px;
         font-family: 'PT Sans', sans-serif;
         font-weight: normal;
     }
@@ -36,10 +36,11 @@
 </header>
     <h2 id="heading">Total Spendings</h2>
     <p id="amount">SGD $</p>
-    <a href="Cards.aspx" id="summary_btn">
+    <a href="Home_Summary.aspx" id="summary_btn" style="color: black">
         Summary
     </a>
-    <a href="Cards.aspx" id="transactions_btn">
+    <a href="Home_Transactions.aspx" id="transactions_btn">
         Transactions
     </a>
+    <hr style="width: 80%; border: none; height: 1px; background-color: black; margin-top: 10px; margin-left: 60px;" />
 </asp:Content>

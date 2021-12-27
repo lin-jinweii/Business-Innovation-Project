@@ -75,7 +75,8 @@
     <Content Include="Budget.aspx" />
     <Content Include="Calendar.aspx" />
     <Content Include="Cards.aspx" />
-    <Content Include="Home.aspx" />
+    <Content Include="Home_Summary.aspx" />
+    <Content Include="Home_Transactions.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -122,12 +123,12 @@
     <Compile Include="Cards.Master.designer.cs">
       <DependentUpon>Cards.Master</DependentUpon>
     </Compile>
-    <Compile Include="Home.aspx.cs">
-      <DependentUpon>Home.aspx</DependentUpon>
+    <Compile Include="Home_Summary.aspx.cs">
+      <DependentUpon>Home_Summary.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Home.aspx.designer.cs">
-      <DependentUpon>Home.aspx</DependentUpon>
+    <Compile Include="Home_Summary.aspx.designer.cs">
+      <DependentUpon>Home_Summary.aspx</DependentUpon>
     </Compile>
     <Compile Include="Home.Master.cs">
       <DependentUpon>Home.Master</DependentUpon>
@@ -135,6 +136,13 @@
     </Compile>
     <Compile Include="Home.Master.designer.cs">
       <DependentUpon>Home.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Home_Transactions.aspx.cs">
+      <DependentUpon>Home_Transactions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home_Transactions.aspx.designer.cs">
+      <DependentUpon>Home_Transactions.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
