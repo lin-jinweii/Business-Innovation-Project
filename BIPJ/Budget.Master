@@ -100,7 +100,7 @@
                 <tr>
                     <td class="whole">
                         <ul>
-                            <li id="home"><a href="Home.aspx">Home</a></li>
+                            <li id="home"><a href="Home_Summary.aspx">Home</a></li>
                             <li><a href="Cards.aspx">Cards</a></li>
                             <li><a href="Budget.aspx" style="color: black">Budget</a></li>
                             <li><a href="Calendar.aspx">Calendar</a></li>
