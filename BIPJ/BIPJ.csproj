@@ -72,6 +72,7 @@
       <DependentUpon>BankDB.mdf</DependentUpon>
     </Content>
     <Content Include="assets\black-circle.png" />
+    <Content Include="assets\close.png" />
     <Content Include="Budget.aspx" />
     <Content Include="Calendar.aspx" />
     <Content Include="Cards.aspx" />
@@ -116,6 +117,7 @@
     <Compile Include="Cards.aspx.designer.cs">
       <DependentUpon>Cards.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Card.cs" />
     <Compile Include="Cards.Master.cs">
       <DependentUpon>Cards.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
