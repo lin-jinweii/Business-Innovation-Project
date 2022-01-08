@@ -43,6 +43,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=20.1.0.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <HintPath>..\packages\AjaxControlToolkit.20.1.0\lib\net40\AjaxControlToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -73,8 +76,11 @@
     </Content>
     <Content Include="assets\black-circle.png" />
     <Content Include="assets\close.png" />
+    <Content Include="assets\mastercard.png" />
+    <Content Include="assets\visa.jpg" />
     <Content Include="Budget.aspx" />
     <Content Include="Calendar.aspx" />
+    <Content Include="CardDetails.aspx" />
     <Content Include="Cards.aspx" />
     <Content Include="Home_Summary.aspx" />
     <Content Include="Home_Transactions.aspx" />
@@ -109,6 +115,13 @@
     </Compile>
     <Compile Include="Calendar.Master.designer.cs">
       <DependentUpon>Calendar.Master</DependentUpon>
+    </Compile>
+    <Compile Include="CardDetails.aspx.cs">
+      <DependentUpon>CardDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CardDetails.aspx.designer.cs">
+      <DependentUpon>CardDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="Cards.aspx.cs">
       <DependentUpon>Cards.aspx</DependentUpon>

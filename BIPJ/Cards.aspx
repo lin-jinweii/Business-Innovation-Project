@@ -1,4 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Cards.Master" AutoEventWireup="true" CodeBehind="Cards.aspx.cs" Inherits="BIPJ.Cards" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 <header>
 <style type="text/css">
@@ -14,8 +16,9 @@
         font-family: 'PT Sans', sans-serif;
         font-weight: bolder;
         font-size: 30px;
-        margin-top: -255px;
+        top: 50px;
         margin-left: 60px;
+        position: absolute;
     }
 
     .btnAddNewCard {
@@ -92,6 +95,23 @@
         margin-left: 55px;
     }
 
+    .pnlDeleteSuccess {
+        position: absolute;
+        left: 500px;
+        top: 150px;
+        width: 350px;
+        height: 150px;
+        border: solid 1px black;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: white;
+    }
+
+    .lblDelete {
+        color: black;
+        margin-left: 55px;
+    }
+
     .btnClose {
         height: 35px;
         width: 60px;
@@ -101,15 +121,27 @@
         margin-top: 5px;
     }
 
+    .rfvCVC {
+        margin-left: 10px;
+    }
+
+    .gvAllCards {
+        margin-left: 60px;
+    }
+
 </style>
 
 </header>
+    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <h2 id="heading">All Linked Cards</h2>
     <asp:Button ID="btnAddNewCard" runat="server" CssClass="btnAddNewCard" OnClick="btnAddNewCard_Click" Text="Add A New Card" Font-Size="Larger"></asp:Button>
+    <br />
+    <br />
+
 
     <asp:Panel ID="pnlAddNewCard" Visible="false" CssClass="pnlAddNewCard" runat="server">
         <asp:Label ID="lblAddNewCardtxt" runat="server" Text="Add A New Card" Font-Bold="true" Font-Names="PT Sans" Font-Size="X-Large"></asp:Label>
-        <asp:ImageButton runat="server" ImageUrl="~/assets/close.png" Width="28px" Height="28px" CssClass="imgbtnClose" OnClick="imgbtnClose_Click"/>
+        <asp:ImageButton runat="server" ImageUrl="~/assets/close.png" Width="28px" Height="28px" CssClass="imgbtnClose" OnClick="imgbtnClose_Click" CausesValidation="False"/>
         <br />
         <br />
         <br />
@@ -118,9 +150,9 @@
         <br />
         <br />
 
-        <asp:TextBox ID="tbcardNo" runat="server" CssClass="tbUnderlined"></asp:TextBox>
+        <asp:TextBox ID="tbcardNo" runat="server" CssClass="tbUnderlined" MaxLength="16"></asp:TextBox>
         <br />
-        <br />
+        <asp:RequiredFieldValidator ID="rfvcardNo" runat="server" ErrorMessage="Please enter a card number" ControlToValidate="tbcardNo" ForeColor="Red"></asp:RequiredFieldValidator>
         <br />
 
         <asp:Label ID="lblMMYY" runat="server" Text="MM/YY" Font-Bold="true" Font-Names="PT Sans" Font-Size="Larger"></asp:Label>
@@ -129,9 +161,12 @@
         <br />
 
         <asp:TextBox ID="tbMMYY" runat="server" CssClass="tbUnderlined"></asp:TextBox>
-        <asp:TextBox ID="tbCVC" runat="server" CssClass="tbUnderlinedV2"></asp:TextBox>
+        <asp:TextBox ID="tbCVC" runat="server" CssClass="tbUnderlinedV2" MaxLength="3"></asp:TextBox>
         <br />
+        <asp:RequiredFieldValidator ID="rfvMMYY" runat="server" ErrorMessage="Please enter MM/YY expiry" ControlToValidate="tbMMYY" ForeColor="Red"></asp:RequiredFieldValidator>
+        <asp:RequiredFieldValidator ID="rfvCVC" runat="server" ErrorMessage="Please enter CVC" ControlToValidate="tbCVC" ForeColor="Red" CssClass="rfvCVC"></asp:RequiredFieldValidator>
         <br />
+        <ajaxToolkit:MaskedEditExtender ID="MMYY" runat="server" TargetControlID="tbMMYY" Mask="99/99" MaskType="Date" InputDirection="LeftToRight"></ajaxToolkit:MaskedEditExtender>
         <br />
 
         <asp:Label runat="server" CssClass="lblPrivacyTxt" Text="By continuing, you agree to the $Z Terms of Service. The privacy notice describes how your data is handled." Font-Names="PT Sans" Font-Size="Small"></asp:Label>
@@ -171,5 +206,27 @@
 
         <asp:Button ID="btnClose" runat="server" CssClass="btnClose" Text="Close" BackColor="Blue" ForeColor="White" OnClick="btnClose_Click"/>
     </asp:Panel>
+
+    <asp:Panel ID="pnlDeleteSuccess" runat="server" CssClass="pnlAddSuccess" Visible="false">
+        <asp:ImageButton runat="server" ImageUrl="~/assets/close.png" Width="28px" Height="28px" CssClass="imgbtnCloseV2" OnClick="imgbtnClose_ClickV2"/>
+        <asp:Label runat="server" CssClass="lblDelete" Text="Card Deleted Successfully!" Font-Bold="true" Font-Names="PT Sans" Font-Size="X-Large"></asp:Label>
+        <br />
+        <br />
+
+        <asp:Button ID="Button1" runat="server" CssClass="btnClose" Text="Close" BackColor="Blue" ForeColor="White" OnClick="btnClose_Click"/>
+    </asp:Panel>
+
+    <asp:GridView ID="gvAllCards" runat="server" BorderStyle="Inset" BorderWidth="1px" CellPadding="4" ForeColor="#333333" GridLines="None" CssClass="gvAllCards" Width="70%" AutoGenerateColumns="False" OnSelectedIndexChanged="gvAllCard_SelectedIndexChanged" DataKeyNames="Card_No" OnRowDeleting="gvAllCards_RowDeleting">
+    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+        <Columns>
+            <asp:ImageField DataImageUrlField="Card_Img" DataImageUrlFormatString="~/assets/{0}" ControlStyle-Width="70px" ControlStyle-Height="50px">
+            <ControlStyle Height="50px" Width="70px"></ControlStyle>
+            </asp:ImageField>
+            <asp:BoundField DataField="Card_Name" HeaderText="Card Name" />
+            <asp:BoundField DataField="Expiry_Date" HeaderText="Expiry Date" />
+            <asp:CommandField ShowDeleteButton="True" ShowSelectButton="True" />
+        </Columns>
+        <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+    </asp:GridView>
 
 </asp:Content>

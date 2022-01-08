@@ -62,16 +62,16 @@
             margin-top: 35px;
             margin-left: 38px;
         }
-        a {
+        a.navbar {
             color: #969FAA;
             font-family: 'Fira Sans', sans-serif;
             font-size: 18px;
         }
-        a:link {
+        a.navbar:link {
             text-decoration: none;
             font-weight: 600;
         }
-        a:hover {
+        a.navbar:hover {
             color: black;
         }
         #home {
@@ -100,12 +100,12 @@
                 <tr>
                     <td class="whole">
                         <ul>
-                            <li id="home"><a href="Home_Summary.aspx">Home</a></li>
-                            <li><a href="Cards.aspx" style="color: black">Cards</a></li>
-                            <li><a href="Budget.aspx">Budget</a></li>
-                            <li><a href="Calendar.aspx">Calendar</a></li>
-                            <li><a href="~">Settings</a></li>
-                            <li><a href="~">Logout</a></li>
+                            <li id="home"><a class="navbar" href="Home_Summary.aspx">Home</a></li>
+                            <li><a class="navbar" href="Cards.aspx" style="color: black">Cards</a></li>
+                            <li><a class="navbar" href="Budget.aspx">Budget</a></li>
+                            <li><a class="navbar" href="Calendar.aspx">Calendar</a></li>
+                            <li><a class="navbar" href="~">Settings</a></li>
+                            <li><a class="navbar" href="~">Logout</a></li>
                             <li>$Z</li>
                         </ul>
                 </tr>
