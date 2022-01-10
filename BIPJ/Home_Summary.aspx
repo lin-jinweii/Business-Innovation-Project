@@ -11,26 +11,32 @@
         font-family: 'PT Sans', sans-serif;
         font-weight: bolder;
         font-size: 30px;
-        margin-top: -255px;
+        top: 50px;
         margin-left: 60px;
+        position: absolute;
     }
     #amount {
         font-family: 'PT Sans', sans-serif;
         font-size: 30px;
         margin-left: 60px;
-        margin-bottom: 100px;
+        position: absolute;
+        top: 100px;
     }
     #summary_btn {
-        margin-left: 60px;
+        left: 270px;
+        top: 240px;
         font-size: 23px;
         font-family: 'PT Sans', sans-serif;
         font-weight: bold;
+        position: absolute;
     }
     #transactions_btn {
-        margin-left: 50px;
+        left: 420px;
+        top: 240px;
         font-size: 23px;
         font-family: 'PT Sans', sans-serif;
-        font-weight: normal;
+        font-weight: bold;
+        position: absolute;
     }
 </style>
 </header>
@@ -42,5 +48,5 @@
     <a href="Home_Transactions.aspx" id="transactions_btn">
         Transactions
     </a>
-    <hr style="width: 80%; border: none; height: 1px; background-color: black; margin-top: 10px; margin-left: 60px;" />
+    <hr style="width: 70%; border: none; height: 1px; background-color: black; top: 280px; left: 270px; position: absolute;" />
 </asp:Content>

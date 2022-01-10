@@ -70,12 +70,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\BankDB.mdf" />
-    <Content Include="App_Data\BankDB_log.ldf">
-      <DependentUpon>BankDB.mdf</DependentUpon>
-    </Content>
     <Content Include="assets\black-circle.png" />
+    <Content Include="assets\CitiBank Ltd.png" />
     <Content Include="assets\close.png" />
+    <Content Include="assets\DBS Bank Ltd.png" />
+    <Content Include="assets\delete.png" />
     <Content Include="assets\mastercard.png" />
     <Content Include="assets\visa.jpg" />
     <Content Include="Budget.aspx" />
@@ -174,7 +173,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

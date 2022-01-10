@@ -2,7 +2,7 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-<header>
+    <header>
 <style type="text/css">
 
     @import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap');
@@ -22,11 +22,12 @@
     }
 
     .btnAddNewCard {
+        top: 120px;
         margin-left: 60px;
-        margin-top: 40px;
         border-radius: 10px;
         height: 100px;
         width: 350px;
+        position: absolute;
     }
 
     .pnlAddNewCard {
@@ -127,6 +128,8 @@
 
     .gvAllCards {
         margin-left: 60px;
+        top: 45%;
+        position: absolute;
     }
 
 </style>
@@ -138,6 +141,29 @@
     <br />
     <br />
 
+    <asp:GridView ID="gvAllCards" runat="server" GridLines="None" BorderStyle="Inset" BorderWidth="1px" CellPadding="4" ForeColor="#333333" CssClass="gvAllCards" Width="75%" AutoGenerateColumns="False" OnSelectedIndexChanged="gvAllCard_SelectedIndexChanged" DataKeyNames="Card_No" OnRowDeleting="gvAllCards_RowDeleting">
+    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+    <HeaderStyle HorizontalAlign="Left"/>
+        <Columns>
+            <asp:BoundField DataField="Card_No" HeaderText="Card No" />
+            <asp:ImageField DataImageUrlField="Card_Img" DataImageUrlFormatString="~/assets/{0}" ControlStyle-Width="70px" ControlStyle-Height="50px">
+            <ControlStyle Height="50px" Width="70px"></ControlStyle>
+            </asp:ImageField>
+            <asp:BoundField DataField="Card_Name" HeaderText="Card Name" ControlStyle-Font-Names="PT Sans">
+            <ControlStyle Font-Names="PT Sans"></ControlStyle>
+            </asp:BoundField>
+            <asp:BoundField DataField="Expiry_Date" HeaderText="Expiry Date" ControlStyle-Font-Names="PT Sans" >
+            <ControlStyle Font-Names="PT Sans"></ControlStyle>
+            </asp:BoundField>
+            <asp:CommandField ShowSelectButton="True" />
+            <asp:TemplateField>
+                <ItemTemplate>
+                    <asp:ImageButton ImageUrl="~/assets/delete.png" Width="30px" Height="30px" ID="deletebtn" runat="server" CommandName="Delete" Text="Delete" OnClientClick="return confirm('Are you sure you want to delete the card?')" />
+                </ItemTemplate>
+            </asp:TemplateField>
+        </Columns>
+        <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+    </asp:GridView>
 
     <asp:Panel ID="pnlAddNewCard" Visible="false" CssClass="pnlAddNewCard" runat="server">
         <asp:Label ID="lblAddNewCardtxt" runat="server" Text="Add A New Card" Font-Bold="true" Font-Names="PT Sans" Font-Size="X-Large"></asp:Label>
@@ -215,18 +241,5 @@
 
         <asp:Button ID="Button1" runat="server" CssClass="btnClose" Text="Close" BackColor="Blue" ForeColor="White" OnClick="btnClose_Click"/>
     </asp:Panel>
-
-    <asp:GridView ID="gvAllCards" runat="server" BorderStyle="Inset" BorderWidth="1px" CellPadding="4" ForeColor="#333333" GridLines="None" CssClass="gvAllCards" Width="70%" AutoGenerateColumns="False" OnSelectedIndexChanged="gvAllCard_SelectedIndexChanged" DataKeyNames="Card_No" OnRowDeleting="gvAllCards_RowDeleting">
-    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-        <Columns>
-            <asp:ImageField DataImageUrlField="Card_Img" DataImageUrlFormatString="~/assets/{0}" ControlStyle-Width="70px" ControlStyle-Height="50px">
-            <ControlStyle Height="50px" Width="70px"></ControlStyle>
-            </asp:ImageField>
-            <asp:BoundField DataField="Card_Name" HeaderText="Card Name" />
-            <asp:BoundField DataField="Expiry_Date" HeaderText="Expiry Date" />
-            <asp:CommandField ShowDeleteButton="True" ShowSelectButton="True" />
-        </Columns>
-        <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-    </asp:GridView>
 
 </asp:Content>

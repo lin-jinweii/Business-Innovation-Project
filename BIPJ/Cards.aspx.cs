@@ -24,6 +24,7 @@ namespace BIPJ
             cardList = aCard.getAllCards();
             gvAllCards.DataSource = cardList;
             gvAllCards.DataBind();
+            gvAllCards.Columns[0].Visible = false;
         }
 
         protected void btnAddNewCard_Click(object sender, EventArgs e)
@@ -42,47 +43,63 @@ namespace BIPJ
 
             if (tbcardNo.Text.StartsWith(visa))
             {
-                string first4 = tbcardNo.Text.Substring(0, 4);
-                cardName = "Visa " + first4;
+                if (tbcardNo.Text.Length == 16) {
+                    string first4 = tbcardNo.Text.Substring(tbcardNo.Text.Length - 4);
+                    cardName = "VISA •••• " + first4;
 
-                Card card = new Card(tbcardNo.Text, tbMMYY.Text, int.Parse(tbCVC.Text), cardName, "visa.jpg");
-                result = card.CardInsert();
+                    Card card = new Card(tbcardNo.Text, tbMMYY.Text, int.Parse(tbCVC.Text), cardName, "visa.jpg");
+                    result = card.CardInsert();
 
-                if (result > 0)
-                {
-                    pnlAddNewCard.Visible = false;
-                    pnlAddSuccess.Visible = true;
+                    if (result > 0)
+                    {
+                        pnlAddNewCard.Visible = false;
+                        pnlAddSuccess.Visible = true;
+                    }
+
+                    else
+                    {
+                        Response.Write("<script>alert('Invalid card or card is added already');</script>");
+                    }
                 }
 
                 else
                 {
-                    Response.Write("<script>alert('Invalid card or card is added already');</script>");
+                    Response.Write("<script>alert('Invalid card');</script>");
                 }
+
             }
 
             else if (tbcardNo.Text.StartsWith(mastercard))
             {
-                string first4 = tbcardNo.Text.Substring(0, 4);
-                cardName = "MasterCard " + first4;
+                if (tbcardNo.Text.Length == 16) {
+                    string first4 = tbcardNo.Text.Substring(tbcardNo.Text.Length - 4);
+                    cardName = "MASTERCARD •••• " + first4;
 
-                Card card = new Card(tbcardNo.Text, tbMMYY.Text, int.Parse(tbCVC.Text), cardName, "mastercard.png");
-                result = card.CardInsert();
+                    Card card = new Card(tbcardNo.Text, tbMMYY.Text, int.Parse(tbCVC.Text), cardName, "mastercard.png");
+                    result = card.CardInsert();
 
-                if (result > 0)
-                {
-                    pnlAddNewCard.Visible = false;
-                    pnlAddSuccess.Visible = true;
+                    if (result > 0)
+                    {
+                        pnlAddNewCard.Visible = false;
+                        pnlAddSuccess.Visible = true;
+                    }
+
+                    else
+                    {
+                        Response.Write("<script>alert('Invalid card or card is added already');</script>");
+                    }
                 }
 
                 else
                 {
-                    Response.Write("<script>alert('Invalid card or card is added already');</script>");
+                    Response.Write("<script>alert('Invalid card');</script>");
                 }
+                
             }
 
             else
             {
-                Response.Write("<script>alert('Invalid card');</script>");
+                Response.Write("<script>alert('Card type is not supported');</script>");
             }
             
         }
@@ -118,7 +135,7 @@ namespace BIPJ
 
             string Name = row.Cells[0].Text;
 
-            Response.Redirect("CardDetails.aspx?Card_Name=" + Name);
+            Response.Redirect("CardDetails.aspx?Card_No=" + Name);
 
         }
 

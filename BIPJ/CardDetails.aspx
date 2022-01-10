@@ -10,38 +10,133 @@
         margin: 0;
     }
 
-    #heading {
+    .lblCardName {
         font-family: 'PT Sans', sans-serif;
         font-weight: bolder;
         font-size: 30px;
-        margin-top: -255px;
+        top: 50px;
         margin-left: 60px;
+        position: absolute;
     }
 
-    .auto-style1 {
-        width: 100%;
+    .btnBack {
+        top: 60px;
+        margin-left: 850px;
+        border-radius: 5px;
+        border-color: none;
+        width: 80px;
+        height: 30px;
+        position: absolute;
     }
+
+    .ImgCard {
+        margin-left: 58px;
+        top: 120px;
+        position: absolute;
+        width: 320px;
+        height: 180px;
+        border-radius: 5px;
+    }
+
+    .lblTransactions {
+        margin-left: 450px;
+        top: 120px;
+        position: absolute;
+        font-family: 'PT Sans', sans-serif;
+        font-size: 25px;
+        font-weight: bold;
+    }
+
+    .lblTransactionsName {
+        margin-left: 450px;
+        top: 170px;
+        position: absolute;
+        font-family: 'PT Sans', sans-serif;
+        font-size: 23px;
+    }
+
+    .lblTransactionsDate {
+        margin-left: 450px;
+        top: 200px;
+        position: absolute;
+        font-family: 'PT Sans', sans-serif;
+        font-size: 23px;
+    }
+
+    .lblsign {
+        margin-left: 800px;
+        top: 200px;
+        position: absolute;
+        font-family: 'PT Sans', sans-serif;
+        font-size: 23px;
+    }
+
+    .lblTransactionsAmt {
+        margin-left: 860px;
+        top: 200px;
+        position: absolute;
+        font-family: 'PT Sans', sans-serif;
+        font-size: 23px;
+    }
+
+    .lblCardDetails {
+        margin-left: 60px;
+        top: 350px;
+        position: absolute;
+        font-family: 'PT Sans', sans-serif;
+        font-size: 25px;
+        font-weight: bold;
+    }
+
+    .lblBankName {
+        margin-left: 130px;
+        top: 410px;
+        position: absolute;
+        font-family: 'PT Sans', sans-serif;
+        font-size: 25px;
+        font-weight: bold;
+    }
+
+    .ImgBankName {
+        margin-left: 58px;
+        top: 400px;
+        position: absolute;
+        width: 60px;
+        height: 55px;
+        border-radius: 5px;
+    }
+
+    .hypViewMore {
+        margin-left: 830px;
+        top: 290px;
+        position: absolute;
+        font-family: 'PT Sans', sans-serif;
+        font-size: 18px;
+        text-decoration: none;
+        color: blue;
+    }
+
 
 </style>
 </header>
 
-<h2 id="heading">Card Details></h2>
+    <asp:Label ID="lblCardName" CssClass="lblCardName" runat="server" Text=""></asp:Label>
 
-    <table class="auto-style1">
-    <tr>
-        <td rowspan="3">
-            <!--<asp:Image ID="ImgCard" runat="server" Height="89px" Width="126px" ImageUrl="~/assets/"/>-->
-        </td>
-        <td>Recent Transactions</td>
-    </tr>
-    <tr>
-        <td>
-            <asp:Label ID="lblCardName" runat="server" Text=""></asp:Label>
-        </td>
-    </tr>
-    <tr>
-        <td>&nbsp;</td>
-    </tr>
-    </table>
+    <asp:Button ID="btnBack" CssClass="btnBack" runat="server" Text="Back" OnClick="btnBack_Click"/>
+
+    <asp:Image ID="ImgCard" runat="server" CssClass="ImgCard"/>
+
+    <asp:Label runat="server" CssClass="lblTransactions" Text="Recent Transaction"></asp:Label>
+    <asp:Label runat="server" ID="lblTransactionsName" CssClass="lblTransactionsName"></asp:Label>
+    <asp:Label runat="server" ID="lblTransactionsDate" CssClass="lblTransactionsDate"></asp:Label>
+    <asp:Label runat="server" Text="SGD $" CssClass="lblsign"></asp:Label>
+    <asp:Label runat="server" ID="lblTransactionsAmt" CssClass="lblTransactionsAmt"></asp:Label>
+
+   
+    <asp:Label runat="server" CssClass="lblCardDetails" Text="Card Details"></asp:Label>
+    <asp:Image ID="ImgBankName" runat="server" CssClass="ImgBankName"/>
+    <asp:Label ID="lblBankName" runat="server" CssClass="lblBankName"></asp:Label>
+
+    <asp:HyperLink runat="server" CssClass="hypViewMore" Text="View More>>>" NavigateUrl="~/Home_Transactions.aspx"></asp:HyperLink>
 
 </asp:Content>

@@ -11,47 +11,46 @@
         font-family: 'PT Sans', sans-serif;
         font-weight: bolder;
         font-size: 30px;
-        margin-top: -255px;
+        top: 50px;
         margin-left: 60px;
+        position: absolute;
     }
     #amount {
         font-family: 'PT Sans', sans-serif;
         font-size: 30px;
         margin-left: 60px;
-        margin-bottom: 100px;
+        position: absolute;
+        top: 100px;
     }
     #summary_btn {
-        margin-left: 60px;
+        left: 270px;
+        top: 240px;
         font-size: 23px;
         font-family: 'PT Sans', sans-serif;
-        font-weight: normal;
+        font-weight: bold;
+        position: absolute;
     }
     #transactions_btn {
-        margin-left: 50px;
+        left: 420px;
+        top: 240px;
         font-size: 23px;
         font-family: 'PT Sans', sans-serif;
         font-weight: bold;
-    }
-    #title {
-        margin-left: 60px;
-        font-size: 23px;
-        font-family: 'PT Sans', sans-serif;
-        font-weight: bold;
+        position: absolute;
     }
 </style>
 </header>
     <h2 id="heading">Total Spendings</h2>
     <p id="amount">SGD $</p>
-
-    <a href="Home_Summary.aspx" id="summary_btn" >
+    <a href="Home_Summary.aspx" id="summary_btn">
         Summary
     </a>
     <a href="Home_Transactions.aspx" id="transactions_btn" style="color: black">
         Transactions
     </a>
-    <hr style="width: 80%; border: none; height: 1px; background-color: black; margin-top: 10px; margin-left: 60px;" />
-
-     <p id="title">All Transactions for Nov 2021</p>
+    <hr style="width: 70%; border: none; height: 1px; background-color: black; top: 280px; left: 270px; position: absolute;" />
+     
+    <p id="title">All Transactions for Nov 2021</p>
 
     <asp:GridView ID="gvTransactions" runat="server">
     </asp:GridView>

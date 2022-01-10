@@ -12,34 +12,41 @@ namespace BIPJ
 {
     public class Bank
     {
-        string _connStr = ConfigurationManager.ConnectionStrings["BankDBContext"].ConnectionString;
+        string _connStr = ConfigurationManager.ConnectionStrings["MainDBContext"].ConnectionString;
         private string _transactionID = null;
+        private string _cardNo = null;
+        private string _expiryDate = null;
+        private int _cvc = 0;
+        private string _bankName = null;
         private string _transactionName = null;
-        private string _cardtype = null;
-        private decimal _amount = 0;
-        private string _category = null;
-        private string _date = null;
+        private decimal _transactionAmt = 0;
+        private string _transactionCat = null;
+        private string _transactionDate = null;
+
 
         public Bank()
         {
         }
 
-        public Bank(string transactionID, string transactionName, string cardtype, decimal amount, string category, string date)
+        public Bank(string transactionID, string cardNo, string expiryDate, int cvc, string bankName, string transactionName, decimal transactionAmt, string transactionCat, string transactionDate)
         {
             _transactionID = transactionID;
+            _cardNo = cardNo;
+            _expiryDate = expiryDate;
+            _cvc = cvc;
+            _bankName = bankName;
             _transactionName = transactionName;
-            _cardtype = cardtype;
-            _amount = amount;
-            _category = category;
-            _date = date;
+            _transactionAmt = transactionAmt;
+            _transactionCat = transactionCat;
+            _transactionDate = transactionDate;
         }
 
-        public Bank (string transactionName, string cardtype, decimal amount, string category, string date): this(null, transactionName, cardtype, amount, category, date)
+        public Bank (string cardNo, string expiryDate, int cvc, string bankName, string transactionName, decimal transactionAmt, string transactionCat, string transactionDate) : this(null, cardNo, expiryDate, cvc, bankName, transactionName, transactionAmt, transactionCat, transactionDate)
         {
 
         }
 
-        public Bank (string transactionID): this(transactionID, "", "", 0, "", "") 
+        public Bank (string transactionID): this(transactionID, "", "", 0, "", "", 0, "", "") 
         { 
 
         }
@@ -49,6 +56,29 @@ namespace BIPJ
             get { return _transactionID; }
             set { _transactionID = value; }
         }
+        public string Card_No
+        {
+            get { return _cardNo; }
+            set { _cardNo = value; }
+        }
+
+        public string Expiry_Date
+        {
+            get { return _expiryDate; }
+            set { _expiryDate = value; }
+        }
+
+        public int CVC
+        {
+            get { return _cvc; }
+            set { _cvc = value; }
+        }
+
+        public string Bank_Name
+        {
+            get { return _bankName; }
+            set { _bankName = value; }
+        }
 
         public string Transaction_Name
         {
@@ -56,65 +86,65 @@ namespace BIPJ
             set { _transactionName = value; }
         }
 
-        public string Card_Type
+        public decimal Transaction_Amt
         {
-            get { return _cardtype; }
-            set { _cardtype = value; }
+            get { return _transactionAmt; }
+            set { _transactionAmt = value; }
         }
 
-        public decimal Amount
+        public string Transaction_Cat
         {
-            get { return _amount; }
-            set { _amount = value; }
+            get { return _transactionCat; }
+            set { _transactionCat = value; }
         }
 
-        public string Category
+        public string Transaction_Date
         {
-            get { return _category; }
-            set { _category = value; }
+            get { return _transactionDate; }
+            set { _transactionDate = value; }
         }
 
-        public string Date
+        public Bank getCardDetails(string cardNo)
         {
-            get { return _date; }
-            set { _date = value; }
-        }
+            Bank cardDetails = null;
 
-        public List<Bank> getTransactionsAll()
-        {
-            List<Bank> transactionlist = new List<Bank>();
-            string transactionName, cardType, category, transactionID, date;
-            decimal amount;
+            string transactionID, expiryDate, bankName, transactionName, transactionCat, transactionDate;
+            decimal transactionAmt;
+            int cvc;
 
-            string queryStr = "SELECT * FROM Bank Order By Date";
+            string queryStr = "SELECT * FROM Bank WHERE Card_No = @CardNo ORDER BY Transaction_Date DESC";
 
             SqlConnection conn = new SqlConnection(_connStr);
             SqlCommand cmd = new SqlCommand(queryStr, conn);
+            cmd.Parameters.AddWithValue("@CardNo", cardNo);
 
             conn.Open();
             SqlDataReader dr = cmd.ExecuteReader();
-            
-            while (dr.Read())
+
+            if (dr.Read())
             {
                 transactionID = dr["Transaction_ID"].ToString();
+                expiryDate = dr["Expiry_Date"].ToString();
+                cvc = int.Parse(dr["CVC"].ToString());
+                bankName = dr["Bank_Name"].ToString();
                 transactionName = dr["Transaction_Name"].ToString();
-                cardType = dr["Card_Type"].ToString();
-                amount = decimal.Parse(dr["Amount"].ToString());
-                category = dr["Category"].ToString();
-                date = dr["Date"].ToString();
-                Bank a = new Bank(transactionID, transactionName, cardType, amount, category, date);
-                transactionlist.Add(a);
+                transactionAmt = decimal.Parse(dr["Transaction_Amt"].ToString());
+                transactionCat = dr["Transaction_Cat"].ToString();
+                transactionDate = dr["Transaction_Date"].ToString();
+
+                cardDetails = new Bank(transactionID, cardNo, expiryDate, cvc, bankName, transactionName, transactionAmt, transactionCat, transactionDate);
+            }
+
+            else
+            {
+                cardDetails = null;
             }
 
             conn.Close();
             dr.Close();
             dr.Dispose();
 
-            return transactionlist;
-        }
-
-        protected void getTotalAmount()
-        {
+            return cardDetails;
         }
     }
 }

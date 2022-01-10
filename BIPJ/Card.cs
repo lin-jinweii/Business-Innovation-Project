@@ -11,7 +11,7 @@ namespace BIPJ
 {
     public class Card
     {
-        string _connStr = ConfigurationManager.ConnectionStrings["BankDBContext"].ConnectionString;
+        string _connStr = ConfigurationManager.ConnectionStrings["MainDBContext"].ConnectionString;
         private string _cardNo = null;
         private string _expiryDate = null;
         private int _cvc = 0;
@@ -107,7 +107,7 @@ namespace BIPJ
             string cardNo, expiryDate, cardName, cardImg;
             int cvc;
 
-            string queryStr = "SELECT * FROM Cards Order By Card_No";
+            string queryStr = "SELECT * FROM Cards";
 
             SqlConnection conn = new SqlConnection(_connStr);
             SqlCommand cmd = new SqlCommand(queryStr, conn);
@@ -174,8 +174,10 @@ namespace BIPJ
         public int CardDelete(string cardNo)
         {
             string queryStr = "DELETE FROM Cards WHERE Card_No = @cardNo";
+
             SqlConnection conn = new SqlConnection(_connStr);
             SqlCommand cmd = new SqlCommand(queryStr, conn);
+
             cmd.Parameters.AddWithValue("@cardNo", cardNo);
             conn.Open();
             int nofRow = 0;
