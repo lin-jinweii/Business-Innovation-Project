@@ -10,27 +10,30 @@ namespace BIPJ
     public partial class CardDetails : System.Web.UI.Page
     {
         Card card = null;
-        Bank bank = null;
+        Bank_Transactions banktransactions = null;
+        Bank_Cards bankcards = null;
         protected void Page_Load(object sender, EventArgs e)
         {
             Card aCard = new Card();
-            Bank aBank = new Bank();
+            Bank_Transactions aBankTransactions = new Bank_Transactions();
+            Bank_Cards aBankCards = new Bank_Cards();
 
             string cardNo = Request.QueryString["Card_No"];
             card = aCard.getCard(cardNo);
-            bank = aBank.getCardDetails(cardNo);
+            banktransactions = aBankTransactions.getCardDetails(cardNo);
+            bankcards = aBankCards.getCardBankName(cardNo);
 
             string transactionID = Request.QueryString["Transaction_ID"];
 
             ImgCard.ImageUrl = "~/assets/" + card.Card_Img.ToString();
             lblCardName.Text = card.Card_Name;
 
-            ImgBankName.ImageUrl = "~/assets/" + bank.Bank_Name.ToString() + ".png";
-            lblBankName.Text = bank.Bank_Name;
+            ImgBankName.ImageUrl = "~/assets/" + bankcards.Bank_Name.ToString() + ".png";
+            lblBankName.Text = bankcards.Bank_Name;
 
-            lblTransactionsName.Text = bank.Transaction_Name;
-            lblTransactionsDate.Text = bank.Transaction_Date;
-            lblTransactionsAmt.Text = bank.Transaction_Amt.ToString();
+            lblTransactionsName.Text = banktransactions.Transaction_Name;
+            lblTransactionsDate.Text = banktransactions.Transaction_Date;
+            lblTransactionsAmt.Text = banktransactions.Transaction_Amt.ToString();
 
 
         }
