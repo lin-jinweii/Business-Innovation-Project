@@ -141,7 +141,7 @@
     <br />
     <br />
 
-    <asp:GridView ID="gvAllCards" runat="server" GridLines="None" BorderStyle="Inset" BorderWidth="1px" CellPadding="4" ForeColor="#333333" CssClass="gvAllCards" Width="75%" AutoGenerateColumns="False" OnSelectedIndexChanged="gvAllCard_SelectedIndexChanged" DataKeyNames="Card_No" OnRowDeleting="gvAllCards_RowDeleting">
+    <asp:GridView ID="gvAllCards" runat="server" GridLines="None" BorderStyle="Inset" BorderWidth="1px" CellPadding="4" ForeColor="#333333" CssClass="gvAllCards" Width="75%" AutoGenerateColumns="False" OnSelectedIndexChanged="gvAllCard_SelectedIndexChanged" DataKeyNames="Card_No" OnRowDeleting="gvAllCards_RowDeleting" OnRowDataBound="gvAllCard_RowDataBound">
     <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
     <HeaderStyle HorizontalAlign="Left"/>
         <Columns>
@@ -172,7 +172,7 @@
         <br />
         <br />
 
-        <asp:Label ID="lblCardNo" runat="server" Text="Card Number" Font-Bold="true" Font-Names="PT Sans" Font-Size="Larger"></asp:Label>
+        <asp:Label ID="lblCardNo" runat="server" Text="Card Number (MASTER/VISA)" Font-Bold="true" Font-Names="PT Sans" Font-Size="Larger"></asp:Label>
         <br />
         <br />
 

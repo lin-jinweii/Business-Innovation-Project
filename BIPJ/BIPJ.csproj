@@ -76,6 +76,7 @@
       <DependentUpon>MainDB.mdf</DependentUpon>
     </Content>
     <Content Include="assets\black-circle.png" />
+    <Content Include="assets\calendar.png" />
     <Content Include="assets\CitiBank Ltd.png" />
     <Content Include="assets\close.png" />
     <Content Include="assets\DBS Bank Ltd.png" />
@@ -100,6 +101,7 @@
     <Compile Include="Budget.aspx.designer.cs">
       <DependentUpon>Budget.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Budgets.cs" />
     <Compile Include="Budget.Master.cs">
       <DependentUpon>Budget.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -18,12 +18,13 @@ namespace BIPJ
         private decimal _transactionAmt = 0;
         private string _transactionCat = null;
         private string _transactionDate = null;
+        private string _cardName = null;
 
         public Bank_Transactions()
         {
         }
 
-        public Bank_Transactions(string transactionID, string cardNo, string transactionName, decimal transactionAmt, string transactionCat, string transactionDate)
+        public Bank_Transactions(string transactionID, string cardNo, string transactionName, decimal transactionAmt, string transactionCat, string transactionDate, string cardName)
         {
             _transactionID = transactionID;
             _cardNo = cardNo;
@@ -31,14 +32,15 @@ namespace BIPJ
             _transactionAmt = transactionAmt;
             _transactionCat = transactionCat;
             _transactionDate = transactionDate;
+            _cardName = cardName;
         }
 
-        public Bank_Transactions(string cardNo, string transactionName, decimal transactionAmt, string transactionCat, string transactionDate) : this(null, cardNo, transactionName, transactionAmt, transactionCat, transactionDate)
+        public Bank_Transactions(string cardNo, string transactionName, decimal transactionAmt, string transactionCat, string transactionDate, string cardName) : this(null, cardNo, transactionName, transactionAmt, transactionCat, transactionDate, cardName)
         {
 
         }
 
-        public Bank_Transactions(string transactionID) : this(transactionID, "", "", 0, "", "")
+        public Bank_Transactions(string transactionID) : this(transactionID, "", "", 0, "", "", "")
         {
 
         }
@@ -77,12 +79,17 @@ namespace BIPJ
             get { return _transactionDate; }
             set { _transactionDate = value; }
         }
+        public string Card_Name
+        {
+            get { return _cardName; }
+            set { _cardName = value; }
+        }
 
         public Bank_Transactions getCardDetails(string cardNo)
         {
             Bank_Transactions cardDetails = null;
 
-            string transactionID, transactionName, transactionCat, transactionDate;
+            string transactionID, transactionName, transactionCat, transactionDate, cardName;
             decimal transactionAmt;
 
             string queryStr = "SELECT * FROM Bank_Transactions WHERE Card_No = @CardNo ORDER BY Transaction_Date DESC";
@@ -101,8 +108,9 @@ namespace BIPJ
                 transactionAmt = decimal.Parse(dr["Transaction_Amt"].ToString());
                 transactionCat = dr["Transaction_Cat"].ToString();
                 transactionDate = dr["Transaction_Date"].ToString();
+                cardName = dr["Card_Name"].ToString();
 
-                cardDetails = new Bank_Transactions(transactionID, cardNo, transactionName, transactionAmt, transactionCat, transactionDate);
+                cardDetails = new Bank_Transactions(transactionID, cardNo, transactionName, transactionAmt, transactionCat, transactionDate, cardName);
             }
 
             else
@@ -120,10 +128,10 @@ namespace BIPJ
         public List<Bank_Transactions> getAllTransactions()
         {
             List<Bank_Transactions> transactionslist = new List<Bank_Transactions>();
-            string transactionid, transactionName, transactionCat, transactionDate, cardNo;
+            string transactionid, transactionName, transactionCat, transactionDate, cardNo, cardName;
             decimal transactionAmt;
 
-            string queryStr = "Select bt.* FROM Bank_Transactions As bt INNER JOIN Cards As c on bt.Card_No = c.Card_No";
+            string queryStr = "Select bt.* FROM Bank_Transactions As bt INNER JOIN Cards As c on bt.Card_No IN (c.Card_No) WHERE MONTH(bt.Transaction_Date) = MONTH(CURRENT_TIMESTAMP) ORDER BY bt.Transaction_Date DESC";
 
             SqlConnection conn = new SqlConnection(_connStr);
             SqlCommand cmd = new SqlCommand(queryStr, conn);
@@ -139,8 +147,9 @@ namespace BIPJ
                 transactionAmt = decimal.Parse(dr["Transaction_Amt"].ToString());
                 transactionCat = dr["Transaction_Cat"].ToString();
                 transactionDate = dr["Transaction_Date"].ToString();
+                cardName = dr["Card_Name"].ToString();
 
-                Bank_Transactions bt = new Bank_Transactions(transactionid, cardNo, transactionName, transactionAmt, transactionCat, transactionDate);
+                Bank_Transactions bt = new Bank_Transactions(transactionid, cardNo, transactionName, transactionAmt, transactionCat, transactionDate, cardName);
                 transactionslist.Add(bt);
             }
 
@@ -157,7 +166,7 @@ namespace BIPJ
             decimal transactionAmt;
             decimal totalamt = 0;
 
-            string queryStr = "Select bt.Transaction_Amt FROM Bank_Transactions As bt INNER JOIN Cards As c on bt.Card_No = c.Card_No";
+            string queryStr = "Select bt.Transaction_Amt FROM Bank_Transactions As bt INNER JOIN Cards As c on bt.Card_No IN (c.Card_No) WHERE MONTH(bt.Transaction_Date) = MONTH(CURRENT_TIMESTAMP)";
 
             SqlConnection conn = new SqlConnection(_connStr);
             SqlCommand cmd = new SqlCommand(queryStr, conn);
@@ -177,6 +186,128 @@ namespace BIPJ
             dr.Dispose();
 
             return transactionlist;
+
+        }
+
+        public List<string> getAllCat()
+        {
+            List<string> transactionlist = new List<string>();
+            string transactionCat;
+
+            string queryStr = "Select bt.Transaction_Cat FROM Bank_Transactions As bt INNER JOIN Cards As c on bt.Card_No IN (c.Card_No) WHERE MONTH(bt.Transaction_Date) = MONTH(CURRENT_TIMESTAMP)";
+
+            SqlConnection conn = new SqlConnection(_connStr);
+            SqlCommand cmd = new SqlCommand(queryStr, conn);
+
+            conn.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                transactionCat = dr["Transaction_Cat"].ToString();
+                transactionlist.Add(transactionCat);
+            }
+
+            conn.Close();
+            dr.Close();
+            dr.Dispose();
+
+            return transactionlist;
+
+        }
+
+        public List<decimal> getCatAmt()
+        {
+            List<decimal> transactionlist = new List<decimal>();
+            decimal transactionAmt;
+
+            string queryStr = "Select SUM(bt.Transaction_Amt) FROM Bank_Transactions As bt INNER JOIN Cards As c on bt.Card_No IN (c.Card_No) WHERE MONTH(bt.Transaction_Date) = MONTH(CURRENT_TIMESTAMP) GROUP BY bt.Transaction_Cat";
+
+            SqlConnection conn = new SqlConnection(_connStr);
+            SqlCommand cmd = new SqlCommand(queryStr, conn);
+
+            conn.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                transactionAmt = decimal.Parse(dr["Transaction_Cat"].ToString());
+                transactionlist.Add(transactionAmt);
+            }
+
+            conn.Close();
+            dr.Close();
+            dr.Dispose();
+
+            return transactionlist;
+
+        }
+
+        public List<Bank_Transactions> getTransaction(string transactionDate)
+        {
+            List<Bank_Transactions> cardDetails = new List<Bank_Transactions>();
+
+            string transactionID, cardNo, transactionName, transactionCat, cardName;
+            decimal transactionAmt;
+
+            string queryStr = "Select bt.* FROM Bank_Transactions As bt INNER JOIN Cards As c on bt.Card_No IN (c.Card_No) WHERE bt.Transaction_Date = @TransactionDate";
+
+            SqlConnection conn = new SqlConnection(_connStr);
+            SqlCommand cmd = new SqlCommand(queryStr, conn);
+            cmd.Parameters.AddWithValue("@TransactionDate", transactionDate);
+
+            conn.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                transactionID = dr["Transaction_ID"].ToString();
+                cardNo = dr["Card_No"].ToString();
+                transactionName = dr["Transaction_Name"].ToString();
+                transactionAmt = decimal.Parse(dr["Transaction_Amt"].ToString());
+                transactionCat = dr["Transaction_Cat"].ToString();
+                cardName = dr["Card_Name"].ToString();
+
+                Bank_Transactions bt = new Bank_Transactions(transactionID, cardNo, transactionName, transactionAmt, transactionCat, transactionDate, cardName);
+                cardDetails.Add(bt);
+            }
+
+            conn.Close();
+            dr.Close();
+            dr.Dispose();
+
+            return cardDetails;
+        }
+
+        public int TransactionInsert()
+        {
+            int result = 0;
+
+            string queryStr = "INSERT INTO Bank_Transactions(Card_No, Transaction_Name, Transaction_Amt, Transaction_Cat, Transaction_Date, Card_Name)" + "values(@Card_No, @Transaction_Name, @Transaction_Amt, @Transaction_Cat, @Transaction_Date, @Card_Name)";
+
+            try
+            {
+                SqlConnection conn = new SqlConnection(_connStr);
+                SqlCommand cmd = new SqlCommand(queryStr, conn);
+
+                cmd.Parameters.AddWithValue("@Card_No", this.Card_No);
+                cmd.Parameters.AddWithValue("@Transaction_Name", this.Transaction_Name);
+                cmd.Parameters.AddWithValue("@Transaction_Amt", this.Transaction_Amt);
+                cmd.Parameters.AddWithValue("@Transaction_Cat", this.Transaction_Cat);
+                cmd.Parameters.AddWithValue("@Transaction_Date", this.Transaction_Date);
+                cmd.Parameters.AddWithValue("@Card_Name", this.Card_Name);
+
+                conn.Open();
+                result += cmd.ExecuteNonQuery();
+                conn.Close();
+
+                return result;
+            }
+
+            catch
+            {
+                return 0;
+            }
 
         }
     }

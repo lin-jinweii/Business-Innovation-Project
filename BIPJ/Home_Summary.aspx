@@ -69,11 +69,35 @@
         position: absolute;
     }
     .lblYear {
-        left: 435px;
+        left: 440px;
         top: 290px;
         font-size: 23px;
         font-family: 'PT Sans', sans-serif;
         font-weight: bold;
+        position: absolute;
+    }
+    .gvCatAmt {
+        left: 680px;
+        top: 350px;
+        position: absolute;
+    }
+    .chrtPrgBar {
+        left: 750px;
+        top: 110px;
+        position: absolute;
+    }
+    .lblBudgetAmt {
+        left: 1070px;
+        top: 90px;
+        font-size: 20px;
+        font-family: 'PT Sans', sans-serif;
+        position: absolute;
+    }
+    .lblBudget {
+        left: 765px;
+        top: 90px;
+        font-size: 20px;
+        font-family: 'PT Sans', sans-serif;
         position: absolute;
     }
 </style>
@@ -97,19 +121,28 @@
         <series>
             <asp:Series Name="Series1"></asp:Series>
         </series>
-        <Legends>
-            <asp:Legend Alignment="Far" Docking="Bottom" IsTextAutoFit="false" LegendStyle="Row" BackColor="Transparent"></asp:Legend>
-        </Legends>
         <chartareas>
             <asp:ChartArea Name="ChartArea1" BackColor="Transparent"></asp:ChartArea>
         </chartareas>
     </asp:Chart>    
 
-    <asp:GridView runat="server" ID="gvCatAmt" AutoGenerateColumns="False">
-        <Columns>
-            <asp:BoundField DataField="Transaction_Cat" HeaderText="Cat" />
-            <asp:BoundField DataField="Transaction_Amt" HeaderText="Amt" />
-        </Columns>
+    <asp:Label runat="server" ID="lblBudget" Text="Budget >" CssClass="lblBudget"></asp:Label>
+    <asp:Chart ID="Chart1" runat="server" BackColor="Transparent" CssClass="chrtPrgBar" Height="40px" Width="500px">
+        <series>
+            <asp:Series Name="Series1" ChartType="Bar"></asp:Series>
+            <asp:Series ChartType="Bar" Name="Series2"></asp:Series>
+        </series>
+        <chartareas>
+            <asp:ChartArea Name="ChartArea1" BackColor="Transparent"></asp:ChartArea>
+        </chartareas>
+    </asp:Chart>   
+    <asp:Label runat="server" ID="lblBudgetAmt" CssClass="lblBudgetAmt"></asp:Label>
 
+    <asp:GridView runat="server" ID="gvCatAmt" AutoGenerateColumns="False" CssClass="gvCatAmt" GridLines="None" Width="12%" Height="12%">
+        <Columns>
+            <asp:BoundField DataField="Transaction_Cat" ItemStyle-HorizontalAlign="Left" />
+            <asp:BoundField DataField="Transaction_Amt" DataFormatString="{0:c}" ItemStyle-HorizontalAlign="Right" />
+        </Columns>
     </asp:GridView>
+
 </asp:Content>

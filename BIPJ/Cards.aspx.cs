@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+using System.Net;
+using System.Net.Mail;
+
 namespace BIPJ
 {
     public partial class Cards : System.Web.UI.Page
@@ -41,24 +44,67 @@ namespace BIPJ
 
             string cardName = "";
 
+            Bank_Cards bankcards = null;
+            Bank_Cards aBankCards = new Bank_Cards();
+
             if (tbcardNo.Text.StartsWith(visa))
             {
-                if (tbcardNo.Text.Length == 16) {
+                if (tbcardNo.Text.Length == 16)
+                {
                     string first4 = tbcardNo.Text.Substring(tbcardNo.Text.Length - 4);
                     cardName = "VISA •••• " + first4;
 
-                    Card card = new Card(tbcardNo.Text, tbMMYY.Text, int.Parse(tbCVC.Text), cardName, "visa.jpg");
-                    result = card.CardInsert();
-
-                    if (result > 0)
+                    bankcards = aBankCards.getCardDetails(tbcardNo.Text);
+                    if (tbMMYY.Text == bankcards.Expiry_Date.ToString())
                     {
-                        pnlAddNewCard.Visible = false;
-                        pnlAddSuccess.Visible = true;
+                        if (tbCVC.Text == bankcards.CVC.ToString())
+                        {
+                            Card card = new Card(tbcardNo.Text, tbMMYY.Text, int.Parse(tbCVC.Text), cardName, "visa.jpg");
+                            result = card.CardInsert();
+
+                            if (result > 0)
+                            {
+                                string from = "jedsmartfridge@gmail.com";
+                                string password = "legendx34";
+
+                                string from2 = "$Z@gmail.com";
+
+                                MailMessage msg = new MailMessage();
+                                msg.Subject = "[SECURITY] $Z Access to Your Card";
+                                msg.From = new MailAddress(from2);
+                                msg.IsBodyHtml = true;
+                                msg.Body = "Dear Daryl, <br/> <br/>" + cardName + " was added into the $Z system. <br/> <br/> Yours Sincerely, <br/> $Z Team";
+                                msg.To.Add(new MailAddress("jedsmartfridge@gmail.com"));
+
+                                SmtpClient smtp = new SmtpClient();
+                                smtp.Host = "smtp.gmail.com";
+                                smtp.Port = 587;
+                                smtp.UseDefaultCredentials = false;
+                                smtp.EnableSsl = true;
+                                NetworkCredential nc = new NetworkCredential(from, password);
+                                smtp.Credentials = nc;
+                                smtp.Send(msg);
+
+                                pnlAddNewCard.Visible = false;
+                                pnlAddSuccess.Visible = true;
+                            }
+
+                            else
+                            {
+                                Response.Write("<script>alert('Invalid card or card is added already');</script>");
+                            }
+                        }
+
+                        else
+                        {
+                            Response.Write("<script>alert('Wrong Card Details');</script>");
+                        }
+
                     }
 
                     else
                     {
-                        Response.Write("<script>alert('Invalid card or card is added already');</script>");
+                        Response.Write("<script>alert('Wrong Card Details');</script>");
                     }
                 }
 
@@ -71,37 +117,70 @@ namespace BIPJ
 
             else if (tbcardNo.Text.StartsWith(mastercard))
             {
-                if (tbcardNo.Text.Length == 16) {
+                if (tbcardNo.Text.Length == 16)
+                {
                     string first4 = tbcardNo.Text.Substring(tbcardNo.Text.Length - 4);
                     cardName = "MASTERCARD •••• " + first4;
 
-                    Card card = new Card(tbcardNo.Text, tbMMYY.Text, int.Parse(tbCVC.Text), cardName, "mastercard.png");
-                    result = card.CardInsert();
-
-                    if (result > 0)
+                    bankcards = aBankCards.getCardDetails(tbcardNo.Text);
+                    if (tbMMYY.Text == bankcards.Expiry_Date.ToString())
                     {
-                        pnlAddNewCard.Visible = false;
-                        pnlAddSuccess.Visible = true;
+                        if (tbCVC.Text == bankcards.CVC.ToString())
+                        {
+                            Card card = new Card(tbcardNo.Text, tbMMYY.Text, int.Parse(tbCVC.Text), cardName, "mastercard.png");
+                            result = card.CardInsert();
+
+                            if (result > 0)
+                            {
+                                string from = "jedsmartfridge@gmail.com";
+                                string password = "legendx34";
+
+                                string from2 = "$Z@gmail.com";
+
+                                MailMessage msg = new MailMessage();
+                                msg.Subject = "[SECURITY] $Z Access to Your Card";
+                                msg.From = new MailAddress(from2);
+                                msg.IsBodyHtml = true;
+                                msg.Body = "Dear Daryl, <br/> <br/>" + cardName + " was added into the $Z system. <br/> <br/> Yours Sincerely, <br/> $Z Team";
+                                msg.To.Add(new MailAddress("jedsmartfridge@gmail.com"));
+
+                                SmtpClient smtp = new SmtpClient();
+                                smtp.Host = "smtp.gmail.com";
+                                smtp.Port = 587;
+                                smtp.UseDefaultCredentials = false;
+                                smtp.EnableSsl = true;
+                                NetworkCredential nc = new NetworkCredential(from, password);
+                                smtp.Credentials = nc;
+                                smtp.Send(msg);
+
+                                pnlAddNewCard.Visible = false;
+                                pnlAddSuccess.Visible = true;
+                            }
+
+                            else
+                            {
+                                Response.Write("<script>alert('Invalid card or card is added already');</script>");
+                            }
+                        }
+
+                        else
+                        {
+                            Response.Write("<script>alert('Wrong Card Details');</script>");
+                        }
+
                     }
 
                     else
                     {
-                        Response.Write("<script>alert('Invalid card or card is added already');</script>");
+                        Response.Write("<script>alert('Wrong Card Details');</script>");
                     }
                 }
 
                 else
                 {
-                    Response.Write("<script>alert('Invalid card');</script>");
+                    Response.Write("<script>alert('Card type is not supported');</script>");
                 }
-                
             }
-
-            else
-            {
-                Response.Write("<script>alert('Card type is not supported');</script>");
-            }
-            
         }
 
         protected void btnClose_Click(object sender, EventArgs e)
@@ -123,6 +202,13 @@ namespace BIPJ
 
         protected void gvAllCard_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                if (e.Row.Cells[2].Text.Equals("Cash")) {
+                    e.Row.Visible = false;
+                }
+            }
+
             foreach (TableCell mycell in e.Row.Cells)
             {
                 mycell.Width = 60;

@@ -21,7 +21,7 @@ namespace BIPJ
             string cardNo = Request.QueryString["Card_No"];
             card = aCard.getCard(cardNo);
             banktransactions = aBankTransactions.getCardDetails(cardNo);
-            bankcards = aBankCards.getCardBankName(cardNo);
+            bankcards = aBankCards.getCardDetails(cardNo);
 
             string transactionID = Request.QueryString["Transaction_ID"];
 

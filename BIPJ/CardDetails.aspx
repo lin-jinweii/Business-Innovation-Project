@@ -137,6 +137,4 @@
     <asp:Image ID="ImgBankName" runat="server" CssClass="ImgBankName"/>
     <asp:Label ID="lblBankName" runat="server" CssClass="lblBankName"></asp:Label>
 
-    <asp:HyperLink runat="server" CssClass="hypViewMore" Text="View More>>>" NavigateUrl="~/Home_Transactions.aspx"></asp:HyperLink>
-
 </asp:Content>

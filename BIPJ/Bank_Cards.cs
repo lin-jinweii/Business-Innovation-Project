@@ -63,7 +63,7 @@ namespace BIPJ
             set { _bankName = value; }
         }
 
-        public Bank_Cards getCardBankName(string cardNo)
+        public Bank_Cards getCardDetails(string cardNo)
         {
             Bank_Cards bankNameDetails = null;
 
@@ -99,6 +99,5 @@ namespace BIPJ
 
             return bankNameDetails;
         }
-
     }
 }

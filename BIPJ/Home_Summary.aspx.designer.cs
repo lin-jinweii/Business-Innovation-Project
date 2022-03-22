@@ -51,6 +51,33 @@ namespace BIPJ
         protected global::System.Web.UI.DataVisualization.Charting.Chart SummaryChart;
 
         /// <summary>
+        /// lblBudget control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBudget;
+
+        /// <summary>
+        /// Chart1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.DataVisualization.Charting.Chart Chart1;
+
+        /// <summary>
+        /// lblBudgetAmt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBudgetAmt;
+
+        /// <summary>
         /// gvCatAmt control.
         /// </summary>
         /// <remarks>
