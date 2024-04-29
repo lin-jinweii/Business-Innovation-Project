@@ -1,4 +1,4 @@
-# Business Innovation Project
+# Expense Tracker Project
 
 The idea of this project is to create an application that can be able to help adults track all their expenses with multiple cards linked together. In this group project, my primary role for the functions are as follows:
 
